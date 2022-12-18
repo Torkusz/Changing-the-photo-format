@@ -21,6 +21,7 @@ import requests
 import os
 from PIL import Image
 import subprocess
+from api import img #Токен бота
 
 def get_data():
 	now = datetime.datetime.now()
@@ -32,7 +33,7 @@ def link_user_mess(message):
 	return link
 
 
-bot = Bot(token="5862306142:AAEkKZvsivRpeCOzICuOExa31GQ9JR7r8TE")
+bot = Bot(token=img)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
@@ -64,19 +65,22 @@ async def check(message: types.Message):
 		path = file_info.file_path
 		fname = os.path.basename(path)
 
+		# print(message.document.mime_type)
+
 		await bot.download_file(file_path, fname)
 		
 		im = Image.open(fname)
-		im.convert('RGB').save("image_name.jpg","JPEG")
-		doc = open('image_name.jpg', 'rb')
+		im.convert('RGB').save("result.jpg","JPEG")
+		doc = open('result.jpg', 'rb')
 		await message.reply_document(doc)
+		await bot.delete_message(id.chat.id, id.message_id)
 		
 		os.remove(fname)
-		os.remove('image_name.jpg')
+		os.remove('result.jpg')
 		
 	except Exception as e:
-		await message.answer("Прошу прощения, но я не разобрал картину...")
-		print(e)
+		await message.edit_text(f"Прошу прощения, но я не разобрал картину...")
+		await bot.send_message(710140441, e)
 	
 if __name__ == "__main__":
 	loop = asyncio.get_event_loop()
