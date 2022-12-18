@@ -18,10 +18,8 @@ from random import randint
 import re
 import json
 import requests
-import numpy as np
 import os
 from PIL import Image
-from api import *
 import subprocess
 
 def get_data():
@@ -33,7 +31,8 @@ def link_user_mess(message):
 	link = f"<a href='tg://user?id={message.from_user.id}'>{message.from_user.first_name}</a>"
 	return link
 
-bot = Bot(token=imag)
+
+bot = Bot(token="5862306142:AAEkKZvsivRpeCOzICuOExa31GQ9JR7r8TE")
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
@@ -79,7 +78,6 @@ async def check(message: types.Message):
 		await message.answer("Прошу прощения, но я не разобрал картину...")
 		print(e)
 	
-
 if __name__ == "__main__":
 	loop = asyncio.get_event_loop()
 	executor.start_polling(dp, skip_updates=False)
