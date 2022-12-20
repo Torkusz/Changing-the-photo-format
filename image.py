@@ -47,7 +47,7 @@ async def start(message: types.Message):
 async def help(message: types.Message):
 	buttons = [
 		types.InlineKeyboardButton(text="Связь", url="https://t.me/Torkusz"),
-		types.InlineKeyboardButton(text="Проект на GitHub", url="https://github.com/Torkusz/Decryption_of_voiceMessages")
+		types.InlineKeyboardButton(text="Проект на GitHub", url="https://github.com/Torkusz/Changing-the-photo-format")
 	]
 	keyboard = types.InlineKeyboardMarkup(row_width=1)
 	keyboard.add(*buttons)
